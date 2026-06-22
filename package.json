@@ -1,0 +1,54 @@
+{
+  "name": "finance-tracker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "dev:up": "docker-compose up -d",
+    "dev:down": "docker-compose down",
+    "dev:logs": "docker-compose logs -f postgres",
+    "dev:reset": "docker-compose down -v && docker-compose up -d",
+    "db:generate": "turbo run db:generate --filter=@repo/db",
+    "db:migrate": "turbo run db:migrate --filter=@repo/db",
+    "db:push": "turbo run db:push --filter=@repo/db",
+    "db:studio": "turbo run db:studio --filter=@repo/db",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint -- --fix",
+    "type-check": "turbo run type-check",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@next/eslint-plugin-next": "^16.2.0",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
+    "prettier": "^3.7.4",
+    "turbo": "^2.9.18",
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.50.0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
