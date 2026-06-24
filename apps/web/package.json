@@ -25,11 +25,13 @@
     "next-auth": "^5.0.0-beta.25",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.80.0",
     "server-only": "^0.0.1",
     "superjson": "^2.2.6",
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@next/eslint-plugin-next": "^15.1.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",

@@ -1,23 +1,16 @@
 import { redirect } from "next/navigation";
-
+import { auth } from "@/lib/auth";
 import { trpc } from "@/lib/trpc-server";
-import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui";
+import { DashboardClient } from "./dashboard-client";
 
 export default async function DashboardPage() {
-  const categories = await trpc.categories.list();
+  const session = await auth();
+  if (!session) redirect("/login");
 
-  if (!categories) redirect("/login");
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 
-  return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Категории</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-3xl font-bold">{categories.length}</p>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  const stats = await trpc.transactions.getStats({ month: currentMonth });
+
+  return <DashboardClient initialStats={stats} currentMonth={currentMonth} />;
 }
