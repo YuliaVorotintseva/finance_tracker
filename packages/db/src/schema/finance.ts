@@ -7,8 +7,15 @@ import {
   boolean,
   index,
   uniqueIndex,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
+
+export const transactionTypeEnum = pgEnum("transaction_type", [
+  "income",
+  "expense",
+  "transfer",
+]);
 
 export const categories = pgTable("categories", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -21,6 +28,7 @@ export const categories = pgTable("categories", {
   }).notNull(),
   color: text("color").notNull().default("#6366f1"),
   icon: text("icon"),
+  isDefault: boolean("is_default").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -66,29 +74,39 @@ export const transactions = pgTable(
   "transactions",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    accountId: uuid("account_id")
+    userId: uuid("user_id")
       .notNull()
-      .references(() => bankAccounts.id, { onDelete: "cascade" }),
-    externalTransactionId: text("external_transaction_id").notNull(),
-    amount: numeric("amount", { precision: 14, scale: 2 }).notNull(),
-    currency: text("currency").notNull(),
-    bookedAt: timestamp("booked_at", { mode: "date" }).notNull(),
-    valueDate: timestamp("value_date", { mode: "date" }).notNull(),
-    description: text("description").notNull(),
-    merchantName: text("merchant_name"),
+      .references(() => users.id, { onDelete: "cascade" }),
+
+    accountId: uuid("account_id").references(() => bankAccounts.id, {
+      onDelete: "set null",
+    }),
     categoryId: uuid("category_id").references(() => categories.id, {
       onDelete: "set null",
     }),
-    isPending: boolean("is_pending").default(false).notNull(),
+
+    amount: numeric("amount", { precision: 14, scale: 2 }).notNull(),
+    currency: text("currency").notNull().default("RUB"),
+    type: transactionTypeEnum("type").notNull(),
+
+    occurredAt: timestamp("occurred_at", { mode: "date" }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
+
+    description: text("description"),
+    merchantName: text("merchant_name"),
+    notes: text("notes"),
+
+    source: text("source", { enum: ["manual", "bank_sync"] })
+      .default("manual")
+      .notNull(),
+    isPending: boolean("is_pending").default(false).notNull(),
   },
   (table) => ({
-    // КРИТИЧНО: защита от дублей при повторной синхронизации
-    externalTxIdx: uniqueIndex("transactions_external_idx").on(
-      table.accountId,
-      table.externalTransactionId,
+    userDateIdx: index("transactions_user_date_idx").on(
+      table.userId,
+      table.occurredAt,
     ),
-    dateIdx: index("transactions_date_idx").on(table.accountId, table.bookedAt),
     categoryIdx: index("transactions_category_idx").on(table.categoryId),
+    typeIdx: index("transactions_type_idx").on(table.type),
   }),
 );

@@ -153,6 +153,9 @@ importers:
       '@trpc/server':
         specifier: ^11.0.0
         version: 11.18.0(typescript@5.9.2)
+      drizzle-orm:
+        specifier: ^0.38.0
+        version: 0.38.4(@types/react@19.2.2)(postgres@3.4.9)(react@19.2.0)
       superjson:
         specifier: ^2.2.1
         version: 2.2.6
