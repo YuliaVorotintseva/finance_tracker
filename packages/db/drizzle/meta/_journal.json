@@ -8,6 +8,13 @@
       "when": 1782117391385,
       "tag": "0000_past_the_hunter",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782384664310,
+      "tag": "0001_sleepy_the_anarchist",
+      "breakpoints": true
     }
   ]
 }

@@ -9,4 +9,5 @@ export * from "./components/avatar";
 export * from "./components/dialog";
 export * from "./components/select";
 export * from "./components/color-picker";
+export * from "./components/loading-spiner";
 export { cn } from "./lib/utils";
