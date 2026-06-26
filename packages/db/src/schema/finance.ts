@@ -8,6 +8,7 @@ import {
   index,
   uniqueIndex,
   pgEnum,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
 
@@ -110,3 +111,42 @@ export const transactions = pgTable(
     typeIdx: index("transactions_type_idx").on(table.type),
   }),
 );
+
+export const categorizationRules = pgTable(
+  "categorization_rules",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    priority: numeric("priority").notNull().default("0"), // Чем выше число, тем раньше проверяется
+    isActive: boolean("is_active").default(true).notNull(),
+
+    conditions: jsonb("conditions").$type<RuleCondition[]>().notNull(),
+
+    // Логика применения условий
+    logic: text("logic", { enum: ["AND", "OR"] })
+      .default("AND")
+      .notNull(),
+
+    targetCategoryId: uuid("target_category_id")
+      .notNull()
+      .references(() => categories.id, { onDelete: "cascade" }),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    userIdx: index("categorization_rules_user_idx").on(table.userId),
+    categoryIdx: index("categorization_rules_category_idx").on(
+      table.targetCategoryId,
+    ),
+  }),
+);
+
+export interface RuleCondition {
+  field: "description" | "merchantName" | "amount";
+  operator: "contains" | "equals" | "greater_than" | "less_than" | "regex";
+  value: string | number;
+}

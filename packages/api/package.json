@@ -9,6 +9,8 @@
     "./caller": "./src/caller.ts"
   },
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
     "type-check": "tsc --noEmit",
     "lint": "eslint ."
   },

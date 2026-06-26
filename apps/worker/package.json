@@ -1,0 +1,43 @@
+{
+  "name": "worker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/apps/worker/src/main.js",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nestjs/bull": "^11.0.0",
+    "@nestjs/bullmq": "^11.0.0",
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "@nestjs/schedule": "^5.0.0",
+    "@repo/api": "workspace:*",
+    "@repo/db": "workspace:*",
+    "axios": "^1.7.0",
+    "bullmq": "^5.40.0",
+    "drizzle-orm": "^0.38.0",
+    "ioredis": "^5.4.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.1.0",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "5.9.2"
+  }
+}
