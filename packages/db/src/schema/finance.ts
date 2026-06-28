@@ -30,7 +30,7 @@ export const categories = pgTable("categories", {
   color: text("color").notNull().default("#6366f1"),
   icon: text("icon"),
   isDefault: boolean("is_default").default(false).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
 });
 
 export const bankConnections = pgTable("bank_connections", {
@@ -45,8 +45,8 @@ export const bankConnections = pgTable("bank_connections", {
   status: text("status", { enum: ["active", "expired", "error"] })
     .default("active")
     .notNull(),
-  lastSyncedAt: timestamp("last_synced_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastSyncedAt: timestamp("last_synced_at", { mode: "string" }),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
 });
 
 export const bankAccounts = pgTable(
@@ -61,7 +61,9 @@ export const bankAccounts = pgTable(
     iban: text("iban"),
     currency: text("currency").notNull(),
     currentBalance: numeric("current_balance", { precision: 14, scale: 2 }),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at", { mode: "string" })
+      .defaultNow()
+      .notNull(),
   },
   (table) => ({
     externalIdIdx: uniqueIndex("bank_accounts_external_idx").on(
@@ -90,8 +92,10 @@ export const transactions = pgTable(
     currency: text("currency").notNull().default("RUB"),
     type: transactionTypeEnum("type").notNull(),
 
-    occurredAt: timestamp("occurred_at", { mode: "date" }).notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
+    occurredAt: timestamp("occurred_at", { mode: "string" }).notNull(),
+    createdAt: timestamp("created_at", { mode: "string" })
+      .defaultNow()
+      .notNull(),
 
     description: text("description"),
     merchantName: text("merchant_name"),
@@ -134,8 +138,12 @@ export const categorizationRules = pgTable(
       .notNull()
       .references(() => categories.id, { onDelete: "cascade" }),
 
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    createdAt: timestamp("created_at", { mode: "string" })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", { mode: "string" })
+      .defaultNow()
+      .notNull(),
   },
   (table) => ({
     userIdx: index("categorization_rules_user_idx").on(table.userId),

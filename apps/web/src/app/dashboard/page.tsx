@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { trpc } from "@/lib/trpc-server";
+import { getServerCaller } from "@/lib/trpc-server";
 import { DashboardClient } from "./dashboard-client";
 
 export default async function DashboardPage() {
   const session = await auth();
   if (!session) redirect("/login");
+
+  const trpc = await getServerCaller();
 
   const now = new Date();
   const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;

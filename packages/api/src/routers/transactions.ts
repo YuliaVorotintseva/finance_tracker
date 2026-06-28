@@ -1,8 +1,10 @@
 import { z } from "zod";
 import { eq, and, desc, sql, count, sum } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
+
 import { router, protectedProcedure } from "../trpc";
 import { transactions, categories } from "@repo/db/schema";
+import { serializeDates } from "../utils/date";
 
 export const transactionsRouter = router({
   list: protectedProcedure
@@ -63,10 +65,10 @@ export const transactionsRouter = router({
         nextCursor = nextItem!.id;
       }
 
-      return {
+      return serializeDates({
         items,
         nextCursor,
-      };
+      });
     }),
 
   create: protectedProcedure
@@ -92,7 +94,7 @@ export const transactionsRouter = router({
           amount: input.amount,
           currency: input.currency,
           type: input.type,
-          occurredAt: new Date(input.occurredAt),
+          occurredAt: input.occurredAt,
           description: input.description ?? null,
           merchantName: input.merchantName ?? null,
           notes: input.notes ?? null,
@@ -100,7 +102,7 @@ export const transactionsRouter = router({
         })
         .returning();
 
-      return created;
+      return serializeDates(created);
     }),
 
   delete: protectedProcedure
@@ -173,11 +175,11 @@ export const transactionsRouter = router({
         .groupBy(categories.id, categories.name, categories.color)
         .orderBy(sql`SUM(${transactions.amount}) DESC`);
 
-      return {
+      return serializeDates({
         totalIncome: stats?.totalIncome ?? "0",
         totalExpense: stats?.totalExpense ?? "0",
         transactionCount: stats?.transactionCount ?? 0,
         byCategory,
-      };
+      });
     }),
 });

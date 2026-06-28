@@ -4,6 +4,7 @@ import { and, eq } from "@repo/db";
 import { router, protectedProcedure } from "../trpc";
 import { categories } from "@repo/db/schema";
 import { TRPCError } from "@trpc/server";
+import { serializeDates } from "../utils/date";
 
 const categoryInputSchema = z.object({
   name: z.string().min(2).max(50).trim(),
@@ -19,23 +20,27 @@ const categoryUpdateSchema = categoryInputSchema.partial();
 
 export const categoriesRouter = router({
   list: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db
-      .select()
-      .from(categories)
-      .where(eq(categories.userId, ctx.user.id))
-      .orderBy(categories.name);
+    return serializeDates(
+      ctx.db
+        .select()
+        .from(categories)
+        .where(eq(categories.userId, ctx.user.id))
+        .orderBy(categories.name),
+    );
   }),
 
   listByType: protectedProcedure
     .input(z.enum(["income", "expense", "subscription", "transfer"]))
     .query(async ({ ctx, input }) => {
-      return ctx.db
-        .select()
-        .from(categories)
-        .where(
-          and(eq(categories.userId, ctx.user.id), eq(categories.type, input)),
-        )
-        .orderBy(categories.name);
+      return serializeDates(
+        ctx.db
+          .select()
+          .from(categories)
+          .where(
+            and(eq(categories.userId, ctx.user.id), eq(categories.type, input)),
+          )
+          .orderBy(categories.name),
+      );
     }),
 
   create: protectedProcedure
@@ -60,7 +65,7 @@ export const categoriesRouter = router({
         .values({ ...input, userId: ctx.user.id })
         .returning();
 
-      return created;
+      return serializeDates(created);
     }),
 
   update: protectedProcedure
@@ -86,7 +91,7 @@ export const categoriesRouter = router({
         });
       }
 
-      return updated;
+      return serializeDates(updated);
     }),
 
   delete: protectedProcedure

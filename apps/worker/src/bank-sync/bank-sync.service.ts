@@ -1,13 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { InjectQueue } from '@nestjs/bullmq';
+import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bullmq';
-import { eq, and } from 'drizzle-orm';
-
 import { db } from '@repo/db';
-
-import { bankConnections } from '@repo/db/schema';
+import { bankConnections, transactions } from '@repo/db/schema';
+import { eq, and } from 'drizzle-orm';
 //import { NordigenService } from './nordigen.service';
 //import { EncryptionService } from '../common/encryption.service';
+import { NotificationService } from '../notification/notification.service';
 import { BankSyncJobData } from './bank-sync.processor';
 
 @Injectable()
@@ -19,6 +18,7 @@ export class BankSyncService {
     private readonly bankSyncQueue: Queue<BankSyncJobData>,
     //private readonly nordigenService: NordigenService,
     //private readonly encryptionService: EncryptionService,
+    private readonly notificationService: NotificationService,
   ) {}
 
   async syncTransactions(userId: string, connectionId: string): Promise<void> {
@@ -42,13 +42,29 @@ export class BankSyncService {
       return;
     }
 
-    //const accessToken = this.encryptionService.decrypt(connection.encryptedAccessToken);
+    // TODO: Реальная синхронизация с Nordigen
+    const [newTransaction] = await db
+      .insert(transactions)
+      .values({
+        userId,
+        amount: '1500.00',
+        currency: 'RUB',
+        type: 'expense',
+        description: 'Тестовая транзакция из банка',
+        merchantName: 'Пятёрочка',
+        occurredAt: new Date().toISOString(),
+        source: 'bank_sync',
+      })
+      .returning();
 
-    // TODO: Использовать токен для получения данных из Nordigen
+    await this.notificationService.sendTransactionNotification(
+      userId,
+      newTransaction.id,
+    );
 
     await db
       .update(bankConnections)
-      .set({ lastSyncedAt: new Date() })
+      .set({ lastSyncedAt: new Date().toISOString() })
       .where(eq(bankConnections.id, connectionId));
 
     this.logger.log(`Synced transactions for connection ${connectionId}`);

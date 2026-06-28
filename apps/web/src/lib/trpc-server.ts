@@ -16,4 +16,7 @@ export const createTRPCContext = cache(async () => {
   };
 });
 
-export const trpc = createCaller(await createTRPCContext());
+export const getServerCaller = cache(async () => {
+  const ctx = await createTRPCContext();
+  return createCaller(ctx);
+});
