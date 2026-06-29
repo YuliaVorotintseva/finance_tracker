@@ -2,7 +2,6 @@ export function serializeDates<T>(obj: T): T {
   if (obj === null || obj === undefined) return obj;
 
   if (obj instanceof Date) {
-    console.log("Found Date object:", obj);
     return obj.toISOString() as unknown as T;
   }
 

@@ -25,12 +25,15 @@ export const transactionsRouter = router({
 
       if (categoryId) conditions.push(eq(transactions.categoryId, categoryId));
       if (type) conditions.push(eq(transactions.type, type));
+
       if (dateFrom)
         conditions.push(
-          sql`${transactions.occurredAt} >= ${new Date(dateFrom)}`,
+          sql`${transactions.occurredAt} >= ${dateFrom}::timestamp`,
         );
       if (dateTo)
-        conditions.push(sql`${transactions.occurredAt} <= ${new Date(dateTo)}`);
+        conditions.push(
+          sql`${transactions.occurredAt} <= ${dateTo}::timestamp`,
+        );
       if (cursor)
         conditions.push(
           sql`${transactions.occurredAt} < (SELECT "occurred_at" FROM "transactions" WHERE "id" = ${cursor})`,
@@ -57,7 +60,7 @@ export const transactionsRouter = router({
         .leftJoin(categories, eq(transactions.categoryId, categories.id))
         .where(and(...conditions))
         .orderBy(desc(transactions.occurredAt), desc(transactions.id))
-        .limit(limit + 1); // +1 чтобы узнать есть ли следующая страница
+        .limit(limit + 1);
 
       let nextCursor: string | undefined = undefined;
       if (items.length > limit) {
@@ -132,8 +135,14 @@ export const transactionsRouter = router({
     )
     .query(async ({ ctx, input }) => {
       const [year, month] = input.month.split("-").map(Number);
-      const startDate = new Date(Number(year), Number(month) - 1, 1);
-      const endDate = new Date(Number(year), Number(month), 0, 23, 59, 59);
+
+      const startDate = `${year}-${String(month).padStart(2, "0")}-01 00:00:00`;
+      const lastDay = new Date(
+        year ?? new Date().getFullYear(),
+        month ?? new Date().getMonth(),
+        0,
+      ).getDate();
+      const endDate = `${year}-${String(month).padStart(2, "0")}-${String(lastDay).padStart(2, "0")} 23:59:59`;
 
       const [stats] = await ctx.db
         .select({
@@ -149,8 +158,8 @@ export const transactionsRouter = router({
         .where(
           and(
             eq(transactions.userId, ctx.user.id),
-            sql`${transactions.occurredAt} >= ${startDate}`,
-            sql`${transactions.occurredAt} <= ${endDate}`,
+            sql`${transactions.occurredAt} >= ${startDate}::timestamp`,
+            sql`${transactions.occurredAt} <= ${endDate}::timestamp`,
           ),
         );
 
@@ -168,8 +177,8 @@ export const transactionsRouter = router({
           and(
             eq(transactions.userId, ctx.user.id),
             eq(transactions.type, "expense"),
-            sql`${transactions.occurredAt} >= ${startDate}`,
-            sql`${transactions.occurredAt} <= ${endDate}`,
+            sql`${transactions.occurredAt} >= ${startDate}::timestamp`,
+            sql`${transactions.occurredAt} <= ${endDate}::timestamp`,
           ),
         )
         .groupBy(categories.id, categories.name, categories.color)

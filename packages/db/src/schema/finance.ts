@@ -3,12 +3,12 @@ import {
   uuid,
   text,
   numeric,
-  timestamp,
   boolean,
   index,
   uniqueIndex,
   pgEnum,
   jsonb,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
 
@@ -80,27 +80,22 @@ export const transactions = pgTable(
     userId: uuid("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-
     accountId: uuid("account_id").references(() => bankAccounts.id, {
       onDelete: "set null",
     }),
     categoryId: uuid("category_id").references(() => categories.id, {
       onDelete: "set null",
     }),
-
     amount: numeric("amount", { precision: 14, scale: 2 }).notNull(),
     currency: text("currency").notNull().default("RUB"),
     type: transactionTypeEnum("type").notNull(),
-
     occurredAt: timestamp("occurred_at", { mode: "string" }).notNull(),
     createdAt: timestamp("created_at", { mode: "string" })
       .defaultNow()
       .notNull(),
-
     description: text("description"),
     merchantName: text("merchant_name"),
     notes: text("notes"),
-
     source: text("source", { enum: ["manual", "bank_sync"] })
       .default("manual")
       .notNull(),
@@ -124,20 +119,15 @@ export const categorizationRules = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
-    priority: numeric("priority").notNull().default("0"), // Чем выше число, тем раньше проверяется
+    priority: numeric("priority").notNull().default("0"),
     isActive: boolean("is_active").default(true).notNull(),
-
     conditions: jsonb("conditions").$type<RuleCondition[]>().notNull(),
-
-    // Логика применения условий
     logic: text("logic", { enum: ["AND", "OR"] })
       .default("AND")
       .notNull(),
-
     targetCategoryId: uuid("target_category_id")
       .notNull()
       .references(() => categories.id, { onDelete: "cascade" }),
-
     createdAt: timestamp("created_at", { mode: "string" })
       .defaultNow()
       .notNull(),
