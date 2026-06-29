@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@repo/db": "workspace:*",
+    "@repo/crypto": "workspace:*",
     "@trpc/client": "^11.18.0",
     "@trpc/server": "^11.0.0",
     "drizzle-orm": "^0.38.0",

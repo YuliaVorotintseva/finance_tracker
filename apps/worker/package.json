@@ -20,6 +20,7 @@
     "@nestjs/schedule": "^5.0.0",
     "@repo/api": "workspace:*",
     "@repo/db": "workspace:*",
+    "@repo/crypto": "workspace:*",
     "axios": "^1.7.0",
     "bullmq": "^5.40.0",
     "drizzle-orm": "^0.38.0",

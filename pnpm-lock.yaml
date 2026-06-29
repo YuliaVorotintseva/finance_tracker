@@ -65,6 +65,9 @@ importers:
       '@repo/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@repo/crypto':
+        specifier: workspace:*
+        version: link:../../packages/crypto
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -186,6 +189,9 @@ importers:
       '@repo/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@repo/crypto':
+        specifier: workspace:*
+        version: link:../../packages/crypto
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -244,6 +250,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@repo/crypto':
+        specifier: workspace:*
+        version: link:../crypto
       '@repo/db':
         specifier: workspace:*
         version: link:../db
@@ -262,6 +271,15 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.25.76
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.3
+
+  packages/crypto:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*

@@ -17,6 +17,7 @@
     "@repo/api": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@repo/crypto": "workspace:*",
     "@tanstack/react-query": "^5.101.0",
     "@trpc/client": "^11.18.0",
     "@trpc/react-query": "^11.18.0",

@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bullmq';
 import { db } from '@repo/db';
+//import { decrypt } from '@repo/crypto';
 import { bankConnections, transactions } from '@repo/db/schema';
 import { eq, and } from 'drizzle-orm';
 //import { NordigenService } from './nordigen.service';
@@ -42,7 +43,20 @@ export class BankSyncService {
       return;
     }
 
+    /*let accessToken: string;
+    try {
+      accessToken = decrypt(connection.encryptedAccessToken);
+    } catch (error: unknown) {
+      this.logger.error(`Failed to decrypt access token for connection ${connectionId}`);
+      await db
+        .update(bankConnections)
+        .set({ status: 'error' })
+        .where(eq(bankConnections.id, connectionId));
+      throw error;
+    }*/
+
     // TODO: Реальная синхронизация с Nordigen
+
     const [newTransaction] = await db
       .insert(transactions)
       .values({
