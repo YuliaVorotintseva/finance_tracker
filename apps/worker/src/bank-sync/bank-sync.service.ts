@@ -2,11 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bullmq';
 import { db } from '@repo/db';
-//import { decrypt } from '@repo/crypto';
 import { bankConnections, transactions } from '@repo/db/schema';
 import { eq, and } from 'drizzle-orm';
-//import { NordigenService } from './nordigen.service';
-//import { EncryptionService } from '../common/encryption.service';
 import { NotificationService } from '../notification/notification.service';
 import { BankSyncJobData } from './bank-sync.processor';
 
@@ -17,8 +14,6 @@ export class BankSyncService {
   constructor(
     @InjectQueue('bank-sync')
     private readonly bankSyncQueue: Queue<BankSyncJobData>,
-    //private readonly nordigenService: NordigenService,
-    //private readonly encryptionService: EncryptionService,
     private readonly notificationService: NotificationService,
   ) {}
 
@@ -43,20 +38,7 @@ export class BankSyncService {
       return;
     }
 
-    /*let accessToken: string;
-    try {
-      accessToken = decrypt(connection.encryptedAccessToken);
-    } catch (error: unknown) {
-      this.logger.error(`Failed to decrypt access token for connection ${connectionId}`);
-      await db
-        .update(bankConnections)
-        .set({ status: 'error' })
-        .where(eq(bankConnections.id, connectionId));
-      throw error;
-    }*/
-
-    // TODO: Реальная синхронизация с Nordigen
-
+    // Тестовая транзакция
     const [newTransaction] = await db
       .insert(transactions)
       .values({
@@ -95,8 +77,6 @@ export class BankSyncService {
     if (!connection) {
       throw new Error(`Connection ${connectionId} not found`);
     }
-
-    // TODO: Реализовать обновление токена через Nordigen
 
     this.logger.log(`Refreshed connection ${connectionId}`);
   }

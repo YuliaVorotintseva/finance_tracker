@@ -3,7 +3,6 @@ import { BullModule } from '@nestjs/bullmq';
 
 import { BankSyncService } from './bank-sync.service';
 import { BankSyncProcessor } from './bank-sync.processor';
-import { NordigenService } from './nordigen.service';
 import { EncryptionService } from '../common/encryption.service';
 import { BankSyncScheduler } from './bank-sync.scheduler';
 
@@ -16,7 +15,6 @@ import { BankSyncScheduler } from './bank-sync.scheduler';
   providers: [
     BankSyncService,
     BankSyncProcessor,
-    NordigenService,
     EncryptionService,
     BankSyncScheduler,
   ],

@@ -25,8 +25,7 @@ export function BankConnections() {
   const handleConnect = async () => {
     setIsConnecting(true);
     try {
-      // TODO: Реализовать OAuth flow с Nordigen
-      alert("Nordigen integration not yet implemented");
+      alert("Open API banking integration not yet implemented");
     } catch (error) {
       console.error("Failed to connect bank:", error);
     } finally {
