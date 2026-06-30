@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: "/dashboard", label: "Дашборд" },
   { href: "/transactions", label: "Транзакции" },
   { href: "/categories", label: "Категории" },
+  { href: "/import", label: "Импорт CSV-файла" },
 ];
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {

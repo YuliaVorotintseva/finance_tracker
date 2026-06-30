@@ -132,7 +132,11 @@ export const categoriesRouter = router({
               eq(categories.id, input.id),
               eq(categories.userId, ctx.user.id),
             ),
-          );
+          )
+          .returning({ id: categories.id });
+
+        console.log("🟡 transactions.delete: Result:", result);
+        console.log("🟡 transactions.delete: rowCount:", result.length);
 
         if (result.length === 0) {
           throw new TRPCError({
