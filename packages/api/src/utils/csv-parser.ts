@@ -145,32 +145,36 @@ const parseCsvLine = (line: string, delimiter: string): string[] => {
   return result;
 };
 
-const parseDate = (dateStr: string): Date | null => {
+function parseDate(dateStr: string): Date | null {
   if (!dateStr) return null;
 
   const cleaned = dateStr.trim();
 
+  // DD.MM.YYYY
   const dmyMatch = cleaned.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})/);
   if (dmyMatch) {
     const [, day, month, year] = dmyMatch;
+    // UTC
     return new Date(
-      `${year}-${month!.padStart(2, "0")}-${day!.padStart(2, "0")}T00:00:00`,
+      Date.UTC(parseInt(year!), parseInt(month!) - 1, parseInt(day!)),
     );
   }
 
+  // YYYY-MM-DD
   const ymdMatch = cleaned.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
   if (ymdMatch) {
     const [, year, month, day] = ymdMatch;
     return new Date(
-      `${year}-${month!.padStart(2, "0")}-${day!.padStart(2, "0")}T00:00:00`,
+      Date.UTC(parseInt(year!), parseInt(month!) - 1, parseInt(day!)),
     );
   }
 
+  // DD/MM/YYYY
   const dmySlashMatch = cleaned.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   if (dmySlashMatch) {
     const [, day, month, year] = dmySlashMatch;
     return new Date(
-      `${year}-${month!.padStart(2, "0")}-${day!.padStart(2, "0")}T00:00:00`,
+      Date.UTC(parseInt(year!), parseInt(month!) - 1, parseInt(day!)),
     );
   }
 
@@ -178,7 +182,7 @@ const parseDate = (dateStr: string): Date | null => {
   if (!isNaN(date.getTime())) return date;
 
   return null;
-};
+}
 
 const parseAmount = (
   amountStr: string,
@@ -232,7 +236,7 @@ const detectCurrency = (
   return "RUB";
 };
 
-export const parseCsv = (
+export function parseCsv(
   content: string,
   options: {
     delimiter?: string;
@@ -240,13 +244,8 @@ export const parseCsv = (
     columnMapping?: ColumnMapping;
     previewLimit?: number;
   } = {},
-): CsvParseResult => {
-  const {
-    delimiter = detectDelimiter(content),
-    skipRows = 0,
-    columnMapping,
-    previewLimit = 10,
-  } = options;
+): CsvParseResult {
+  const { skipRows = 0, columnMapping, previewLimit = 10 } = options;
 
   const normalized = content.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   const lines = normalized.split("\n").filter((line) => line.trim());
@@ -260,6 +259,8 @@ export const parseCsv = (
   if (dataLines.length === 0) {
     throw new Error("Нет данных для импорта после пропуска строк");
   }
+
+  const delimiter = options.delimiter || detectDelimiter(dataLines[0]!);
 
   const headers = parseCsvLine(dataLines[0]!, delimiter);
 
@@ -294,7 +295,7 @@ export const parseCsv = (
     encoding: "utf-8",
     delimiter,
   };
-};
+}
 
 const autoDetectMapping = (headers: string[]): ColumnMapping => {
   const normalized = headers.map((h) => h.toLowerCase().trim());

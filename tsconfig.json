@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowJs": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    "vitest.setup.ts",
+    "vitest.config.ts",
+    "eslint.config.js",
+    "eslint.config.mjs",
+    "scripts/**/*.ts",
+    "scripts/**/*.js"
+  ],
+  "exclude": ["node_modules", "dist", "coverage"]
+}
