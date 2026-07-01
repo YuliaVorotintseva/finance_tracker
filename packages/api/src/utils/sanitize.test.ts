@@ -71,4 +71,51 @@ describe("isValidEmail", () => {
     const email = `${localPart}@example.com`;
     expect(isValidEmail(email)).toBe(true);
   });
+
+  it("should handle multiple HTML tags", () => {
+    expect(sanitizeString("<p>test</p><div>content</div>")).toBe("testcontent");
+  });
+
+  it("should handle nested tags", () => {
+    expect(sanitizeString("<div><span>nested</span></div>")).toBe("nested");
+  });
+
+  it("should handle mixed case protocols", () => {
+    expect(sanitizeString("JaVaScRiPt:alert(1)")).toBe("alert(1)");
+  });
+
+  it("should handle multiple event handlers", () => {
+    expect(sanitizeString("onclick=test onmouseover=foo")).toBe("test foo");
+  });
+
+  it("should handle whitespace variations", () => {
+    expect(sanitizeString("  \t\n  test  \n\t  ")).toBe("test");
+  });
+});
+
+describe("isValidEmail - additional coverage", () => {
+  it("should reject emails with spaces", () => {
+    expect(isValidEmail("user @example.com")).toBe(false);
+    expect(isValidEmail("user@ example.com")).toBe(false);
+  });
+
+  it("should reject emails with special characters", () => {
+    expect(isValidEmail("user@example!.com")).toBe(false);
+    expect(isValidEmail("user@exam ple.com")).toBe(false);
+  });
+
+  it("should accept emails with subdomains", () => {
+    expect(isValidEmail("user@sub.example.com")).toBe(true);
+    expect(isValidEmail("user@deep.sub.example.com")).toBe(true);
+  });
+
+  it("should accept emails with numbers", () => {
+    expect(isValidEmail("user123@example.com")).toBe(true);
+    expect(isValidEmail("user@example123.com")).toBe(true);
+  });
+
+  it("should reject emails without TLD", () => {
+    expect(isValidEmail("user@localhost")).toBe(false);
+    expect(isValidEmail("user@example")).toBe(false);
+  });
 });

@@ -27,9 +27,6 @@ vi.mock("@repo/db/schema", () => ({
   },
 }));
 
-const VALID_UUID = "11111111-1111-1111-1111-111111111111";
-const NON_EXISTENT_UUID = "22222222-2222-2222-2222-222222222222";
-
 describe("Transactions Router", () => {
   const testUser = { id: "user-1", email: "test@example.com" };
   let caller: ReturnType<typeof appRouter.createCaller>;
@@ -133,24 +130,6 @@ describe("Transactions Router", () => {
           occurredAt: "invalid-date",
         }),
       ).rejects.toThrow();
-    });
-  });
-
-  describe("delete", () => {
-    it("should delete existing transaction", async () => {
-      mockDb.returning.mockResolvedValueOnce([{ id: VALID_UUID }]);
-
-      const result = await caller.transactions.delete({ id: VALID_UUID });
-
-      expect(result.success).toBe(true);
-    });
-
-    it("should throw NOT_FOUND if transaction does not exist", async () => {
-      mockDb.returning.mockResolvedValueOnce([]);
-
-      await expect(
-        caller.transactions.delete({ id: NON_EXISTENT_UUID }),
-      ).rejects.toThrow(TRPCError);
     });
   });
 

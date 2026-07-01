@@ -121,9 +121,6 @@ export const transactionsRouter = router({
         )
         .returning({ id: transactions.id });
 
-      console.log("🟡 transactions.delete: Result:", result);
-      console.log("🟡 transactions.delete: rowCount:", result.length);
-
       if (result.length === 0) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }

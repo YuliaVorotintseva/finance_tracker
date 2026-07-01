@@ -168,7 +168,8 @@ export const bankConnectionsRouter = router({
             eq(bankConnections.id, input.id),
             eq(bankConnections.userId, ctx.user.id),
           ),
-        );
+        )
+        .returning({ id: bankConnections.id });
 
       if (result.length === 0) {
         throw new TRPCError({ code: "NOT_FOUND" });
