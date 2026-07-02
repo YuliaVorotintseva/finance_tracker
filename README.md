@@ -1,159 +1,233 @@
-# Turborepo starter
+# Finance Tracker
 
-This Turborepo starter is maintained by the Turborepo core team.
+Современное приложение для учёта личных финансов с умной категоризацией и детальной аналитикой.
 
-## Using this example
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
+![Tests](https://img.shields.io/badge/tests-87%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-87%25-brightgreen)
 
-Run the following command:
+## Основные возможности
 
-```sh
-npx create-turbo@latest
+### Управление финансами
+
+- **Ручной ввод транзакций** — быстрое добавление доходов и расходов
+- **Умная категоризация** — Rule Engine для автоматической классификации транзакций
+- **Импорт CSV** — загрузка выписок из любых банков (Сбербанк, Тинькофф, Альфа, ВТБ)
+
+### Аналитика и отчёты
+
+- **Дашборд** — ключевые метрики: доходы, расходы, баланс
+- **Графики расходов** — визуализация по категориям и времени
+- **Сравнение периодов** — анализ динамики расходов
+
+### Безопасность
+
+- **Шифрование AES-256-GCM** — банковские токены защищены в БД
+- **Rate limiting** — защита от DDoS атак
+- **Security headers** — CSP, HSTS, XSS protection
+- **OAuth 2.0** — вход через GitHub, Google, email/password
+
+## 🛠 Технологический стек
+
+### Frontend
+
+- **Next.js 15** — React фреймворк с App Router и Server Components
+- **React 19** — последняя версия с новыми хуками
+- **TypeScript 5.9** — строгая типизация
+- **Tailwind CSS** — utility-first CSS фреймворк
+- **tRPC** — end-to-end типизация от API до UI
+- **React Query** — управление серверным состоянием
+- **Zod** — валидация схем
+
+### Backend
+
+- **NestJS 10** — Node.js фреймворк для воркера
+- **tRPC** — type-safe API
+- **Drizzle ORM** — современный ORM для TypeScript
+- **PostgreSQL 16** — основная база данных
+- **Redis (Upstash)** — кэширование и очереди
+- **BullMQ** — обработка фоновых задач
+
+### Инфраструктура
+
+- **Docker** — контейнеризация
+- **GitHub Actions** — CI/CD
+- **Codecov** — покрытие тестами
+
+### Тестирование
+
+- **Vitest** — unit и integration тесты (87% покрытие)
+- **Playwright** — E2E тесты
+
+## Монорепозиторий
+
+```bash
+finance-tracker/
+├── apps/
+│ ├── web/ # Next.js приложение
+│ └── worker/ # NestJS воркер для фоновых задач
+├── packages/
+│ ├── api/ # tRPC роутеры и бизнес-логика
+│ ├── db/ # Drizzle ORM схемы и клиент
+│ ├── ui/ # Переиспользуемые UI компоненты
+│ ├── crypto/ # Утилиты шифрования
+│ ├── eslint-config/ # ESLint конфигурация
+│ └── typescript-config/ # TypeScript конфигурации
+└── docker-compose.yml # Локальная разработка
 ```
 
-## What's inside?
+## Презентация
 
-This Turborepo includes the following packages/apps:
+### Страница входа в приложение
 
-### Apps and Packages
+![Login page](images/login.png)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Страница регистрации
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+![Logup page](images/register.png)
 
-### Utilities
+### Компонент добавления новой категории
 
-This Turborepo has some additional tools already setup for you:
+![Add new category](images/new-category.png)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Страница категорий
 
-### Build
+![Categories page](images/categories.png)
 
-To build all apps and packages, run the following command:
+### Компонент добавления новой транзакции
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+![Add new transaction](images/new-transaction.png)
 
-```sh
-cd my-turborepo
-turbo build
+### Страница транзакций
+
+![Transactions page](images/transactions.png)
+
+### Страница с данными о заработках и доходах за месяц
+
+![Dashbord](images/dashbord.png)
+
+### Страница добавления формирования и добавления новых транзакций через парсинг выписки из банка в формате CSV
+
+![Import CSV file](images/import.png)
+
+### Результат парсинга CSV файла
+
+![CSV file parsing result](images/import-new-transactions.png)
+
+### Добавление новых транзакций
+
+![Add new transactions](images/import-add-new-transactions.png)
+
+## Быстрый старт
+
+### Требования
+
+- Node.js 20+
+- pnpm 9+
+- Docker и Docker Compose
+- PostgreSQL 16+ (или Docker)
+
+### Установка
+
+1. **Клонируйте репозиторий**
+
+```bash
+git clone git@github.com:YuliaVorotintseva/finance_tracker.git
+cd finance-tracker
 ```
 
-Without global `turbo`, use your package manager:
+2. **Установите зависимости**
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+```bash
+pnpm install
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+3. **Настройте переменные окружения**
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+```bash
+# Скопируйте пример .env
+cp apps/web/.env.example apps/web/.env
+cp apps/worker/.env.example apps/worker/.env
 
-```sh
-turbo build --filter=docs
+# Сгенерируйте ключ шифрования
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+# Добавьте ключ в оба .env файла
 ```
 
-Without global `turbo`:
+4. **Запустите базу данных**
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+docker-compose up -d postgres
 ```
 
-### Develop
+5. **Примените миграции**
 
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
+```bash
+pnpm --filter @repo/db db:push
 ```
 
-Without global `turbo`, use your package manager:
+6. **Запустите приложение**
 
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
+```bash
+pnpm dev
+
+# Откройте http://localhost:3000
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## Тестирование
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### Unit тесты
 
-```sh
-turbo dev --filter=web
+```bash
+# Запустить все тесты
+pnpm test
+
+# С покрытием
+pnpm test:coverage
+
+# Watch mode
+pnpm test:watch
 ```
 
-Without global `turbo`:
+### E2E тесты
 
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+```bash
+# Запустить Playwright тесты
+pnpm test:e2e
+
+# С UI
+pnpm test:e2e:ui
 ```
 
-### Remote Caching
+### Проверка типов и линтинг
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+```bash
+pnpm type-check
+pnpm lint
 ```
 
-Without global `turbo`, use your package manager:
+## Безопасность
 
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
+- **Rate limiting** — защита от brute force
+- **Security headers** — CSP, HSTS, X-Frame-Options
+- **SQL injection protection** — параметризованные запросы
+- **XSS protection** — санитизация входных данных
+- **CSRF protection** — токены для форм
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Автор
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+**Воротинцева Юлия**
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+- **GitHub**: @YuliaVorotintseva
+- **Email**: yulia.vorotintseva@gmail.com
 
-```sh
-turbo link
-```
+## Технологии
 
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- **Next.js** (https://nextjs.org/) — отличный fullstack фреймворк
+- **NestJS** (https://nestjs.com/) — отличный backend фреймворк
+- **tRPC** (https://trpc.io/) — end-to-end типизация
+- **Drizzle ORM** (https://orm.drizzle.team/) — современный ORM
+- **Tailwind CSS** (https://tailwindcss.com/) — utility-first CSS
