@@ -26,8 +26,8 @@ export const TransactionsClient = () => {
   return (
     <div className="container mx-auto p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Транзакции</h1>
-        <Button onClick={() => setIsAddOpen(true)}>+ Добавить</Button>
+        <h1 className="text-3xl font-bold">Transactions</h1>
+        <Button onClick={() => setIsAddOpen(true)}>+ Add</Button>
       </div>
 
       <Card>
@@ -37,19 +37,19 @@ export const TransactionsClient = () => {
               <thead className="border-b bg-muted/50">
                 <tr>
                   <th className="px-4 py-3 text-left text-sm font-medium">
-                    Дата
+                    Date
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium">
-                    Описание
+                    Description
                   </th>
                   <th className="px-4 py-3 text-left text-sm font-medium">
-                    Категория
+                    Category
                   </th>
                   <th className="px-4 py-3 text-right text-sm font-medium">
-                    Сумма
+                    Amount
                   </th>
                   <th className="px-4 py-3 text-right text-sm font-medium">
-                    Действия
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -57,7 +57,7 @@ export const TransactionsClient = () => {
                 {transactions.map((tx) => (
                   <tr key={tx.id} className="border-b last:border-0">
                     <td className="px-4 py-3 text-sm">
-                      {new Date(tx.occurredAt).toLocaleDateString("ru-RU")}
+                      {new Date(tx.occurredAt).toLocaleDateString("en-EN")}
                     </td>
                     <td className="px-4 py-3 text-sm">
                       <div className="font-medium">{tx.description || "—"}</div>
@@ -95,7 +95,7 @@ export const TransactionsClient = () => {
                         onClick={() => deleteMutation.mutate({ id: tx.id })}
                         disabled={deleteMutation.isPending}
                       >
-                        Удалить
+                        Delete
                       </Button>
                     </td>
                   </tr>
@@ -111,7 +111,7 @@ export const TransactionsClient = () => {
                 onClick={() => fetchNextPage()}
                 disabled={isFetching}
               >
-                {isFetching ? "Загрузка..." : "Показать ещё"}
+                {isFetching ? "Loading..." : "Show more"}
               </Button>
             </div>
           )}

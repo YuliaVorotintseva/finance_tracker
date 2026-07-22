@@ -81,7 +81,7 @@ export const RegisterForm = () => {
         </div>
         <CardTitle className="text-2xl font-bold">Создать аккаунт</CardTitle>
         <p className="text-sm text-muted-foreground">
-          Заполните форму для регистрации
+          Fill out the registration form
         </p>
       </CardHeader>
 
@@ -94,10 +94,10 @@ export const RegisterForm = () => {
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Имя</Label>
+            <Label htmlFor="name">Name</Label>
             <Input
               id="name"
-              placeholder="Иван Иванов"
+              placeholder="Your name"
               autoComplete="name"
               disabled={isSubmitting}
               {...form.register("name")}
@@ -129,7 +129,7 @@ export const RegisterForm = () => {
           <div className="space-y-2">
             <PasswordInput
               id="password"
-              label="Пароль"
+              label="Password"
               placeholder="••••••••"
               register={form.register("password")}
               error={form.formState.errors.password?.message}
@@ -140,7 +140,7 @@ export const RegisterForm = () => {
           <div className="space-y-2">
             <PasswordInput
               id="confirmPassword"
-              label="Подтвердите пароль"
+              label="Confirm your password"
               placeholder="••••••••"
               register={form.register("confirmPassword")}
               error={form.formState.errors.confirmPassword?.message}
@@ -155,17 +155,17 @@ export const RegisterForm = () => {
             {isSubmitting ? (
               <>
                 <LoadingSpinner />
-                Регистрация...
+                ...
               </>
             ) : (
-              "Зарегистрироваться"
+              "Logup"
             )}
           </Button>
         </form>
 
         <div className="mt-4 text-center text-sm">
           <Link href="/login" className="text-primary hover:underline">
-            Уже есть аккаунт? Войти
+            Already have an account? Log in
           </Link>
         </div>
       </CardContent>

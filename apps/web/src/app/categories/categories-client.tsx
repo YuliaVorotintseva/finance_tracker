@@ -17,25 +17,25 @@ export const CategoriesClient = () => {
   });
 
   const typeLabels = {
-    income: "Доход",
-    expense: "Расход",
-    subscription: "Подписка",
-    transfer: "Перевод",
+    income: "Income",
+    expense: "Expense",
+    subscription: "Subscription",
+    transfer: "Transfer",
   };
 
   return (
     <div className="container mx-auto p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Категории</h1>
-        <Button onClick={() => setIsAddOpen(true)}>+ Добавить категорию</Button>
+        <h1 className="text-3xl font-bold">Categories</h1>
+        <Button onClick={() => setIsAddOpen(true)}>+ Add category</Button>
       </div>
 
       {isLoading ? (
-        <p>Загрузка...</p>
+        <p>Loading...</p>
       ) : categories?.length === 0 ? (
         <Card>
           <CardContent className="p-6 text-center text-muted-foreground">
-            У вас пока нет категорий. Создайте первую!
+            You don't have any categories yet. Create your own!
           </CardContent>
         </Card>
       ) : (

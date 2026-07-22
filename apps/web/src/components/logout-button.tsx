@@ -11,7 +11,7 @@ export const LogoutButton = () => {
       className="hover:bg-transparent hover:text-destructive"
       onClick={() => signOut({ callbackUrl: "/login" })}
     >
-      Выйти
+      Log out
     </Button>
   );
 };

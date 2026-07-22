@@ -58,15 +58,15 @@ export function AddCategoryDialog({ open, onClose }: AddCategoryDialogProps) {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogHeader>
-        <DialogTitle>Новая категория</DialogTitle>
+        <DialogTitle>New category</DialogTitle>
       </DialogHeader>
 
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <Label htmlFor="name">Название</Label>
+          <Label htmlFor="name">Name</Label>
           <Input
             id="name"
-            placeholder="Например: Продукты"
+            placeholder="For example: products"
             {...form.register("name")}
           />
           {form.formState.errors.name && (
@@ -82,16 +82,16 @@ export function AddCategoryDialog({ open, onClose }: AddCategoryDialogProps) {
             id="type"
             {...form.register("type")}
             options={[
-              { value: "expense", label: "Расход" },
-              { value: "income", label: "Доход" },
-              { value: "subscription", label: "Подписка" },
-              { value: "transfer", label: "Перевод" },
+              { value: "expense", label: "Expense" },
+              { value: "income", label: "Income" },
+              { value: "subscription", label: "Subscription" },
+              { value: "transfer", label: "Transfer" },
             ]}
           />
         </div>
 
         <div>
-          <Label>Цвет</Label>
+          <Label>Colour</Label>
           <ColorPicker
             value={form.watch("color")}
             onChange={(color) => form.setValue("color", color)}
@@ -100,10 +100,10 @@ export function AddCategoryDialog({ open, onClose }: AddCategoryDialogProps) {
 
         <DialogFooter>
           <Button type="button" variant="outline" onClick={onClose}>
-            Отмена
+            Cancel
           </Button>
           <Button type="submit" disabled={createMutation.isPending}>
-            {createMutation.isPending ? "Сохранение..." : "Сохранить"}
+            {createMutation.isPending ? "..." : "Save"}
           </Button>
         </DialogFooter>
       </form>

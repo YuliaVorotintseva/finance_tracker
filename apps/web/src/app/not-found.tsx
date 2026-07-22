@@ -12,12 +12,12 @@ export default function NotFound() {
           <div className="text-6xl font-bold text-muted-foreground mb-4">
             404
           </div>
-          <h2 className="text-xl font-bold mb-2">Страница не найдена</h2>
+          <h2 className="text-xl font-bold mb-2">Page not found</h2>
           <p className="text-muted-foreground mb-4">
-            Запрашиваемая страница не существует или была перемещена.
+            The requested page does not exist or has been moved.
           </p>
           <Link href="/dashboard">
-            <Button>На главную</Button>
+            <Button>To the main page</Button>
           </Link>
         </CardContent>
       </Card>

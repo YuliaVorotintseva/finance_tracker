@@ -111,7 +111,7 @@ export function ImportClient() {
           setStep("preview");
         } catch (error) {
           console.error("Parse error:", error);
-          alert("Не удалось прочитать файл. Проверьте формат CSV.");
+          alert("Unable to read file. Check the CSV format.");
         }
       };
 
@@ -134,7 +134,7 @@ export function ImportClient() {
       setTotalRows(result.totalRows);
     } catch (error) {
       console.error("Reparse error:", error);
-      alert("Ошибка при повторном парсинге");
+      alert("Error while reparsing");
     }
   };
 
@@ -158,7 +158,7 @@ export function ImportClient() {
       utils.transactions.getStats.invalidate();
     } catch (error) {
       console.error("Import error:", error);
-      alert("Ошибка при импорте");
+      alert("Error while importing");
       setStep("preview");
     }
   };
@@ -177,16 +177,16 @@ export function ImportClient() {
   return (
     <div className="container mx-auto p-6 max-w-4xl">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">Импорт транзакций</h1>
+        <h1 className="text-3xl font-bold">Import transactions</h1>
         <p className="text-muted-foreground mt-2">
-          Загрузите CSV выписку из вашего банка
+          Download a CSV file of your bank statement
         </p>
       </div>
 
       {step === "upload" && (
         <Card>
           <CardHeader>
-            <CardTitle>Загрузите CSV файл</CardTitle>
+            <CardTitle>Download a CSV file</CardTitle>
           </CardHeader>
           <CardContent>
             <div
@@ -207,20 +207,20 @@ export function ImportClient() {
               />
               <div className="text-4xl mb-4">📄</div>
               <p className="text-lg font-medium mb-2">
-                Перетащите CSV файл сюда
+                Drag and drop your CSV file here
               </p>
               <p className="text-sm text-muted-foreground">
-                или нажмите для выбора файла
+                or click to select a file
               </p>
             </div>
 
             <div className="mt-6">
-              <Label>Выберите ваш банк (для автонастройки)</Label>
+              <Label>Select your bank (for automatic setup)</Label>
               <Select
                 value={bankPreset}
                 onChange={(e) => setBankPreset(e.target.value)}
                 options={[
-                  { value: "custom", label: "Другой банк" },
+                  { value: "custom", label: "Another bank" },
                   { value: "sberbank", label: "Сбербанк" },
                   { value: "tinkoff", label: "Тинькофф" },
                   { value: "alfa", label: "Альфа-Банк" },
@@ -236,24 +236,24 @@ export function ImportClient() {
         <div className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Настройки импорта</CardTitle>
+              <CardTitle>Import settings</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label>Разделитель</Label>
+                  <Label>Delimiter</Label>
                   <Select
                     value={delimiter}
                     onChange={(e) => setDelimiter(e.target.value)}
                     options={[
-                      { value: ";", label: "Точка с запятой (;)" },
-                      { value: ",", label: "Запятая (,)" },
-                      { value: "\t", label: "Табуляция" },
+                      { value: ";", label: "Semicolon (;)" },
+                      { value: ",", label: "Comma (,)" },
+                      { value: "\t", label: "Tabulation" },
                     ]}
                   />
                 </div>
                 <div>
-                  <Label>Пропустить строк</Label>
+                  <Label>Skip lines</Label>
                   <Input
                     type="number"
                     min="0"
@@ -262,12 +262,12 @@ export function ImportClient() {
                   />
                 </div>
                 <div>
-                  <Label>Категория по умолчанию</Label>
+                  <Label>Default category</Label>
                   <Select
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
                     options={[
-                      { value: "", label: "Без категории" },
+                      { value: "", label: "Without any category" },
                       ...(categories || []).map((c) => ({
                         value: c.id,
                         label: c.name,
@@ -278,10 +278,10 @@ export function ImportClient() {
               </div>
 
               <div className="border-t pt-4">
-                <h3 className="font-semibold mb-3">Маппинг колонок</h3>
+                <h3 className="font-semibold mb-3">Column mapping</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label>Дата *</Label>
+                    <Label>Date *</Label>
                     <Select
                       value={columnMapping.date}
                       onChange={(e) =>
@@ -291,13 +291,13 @@ export function ImportClient() {
                         })
                       }
                       options={[
-                        { value: "", label: "— не выбрано —" },
+                        { value: "", label: "— not selected —" },
                         ...detectedHeaders.map((h) => ({ value: h, label: h })),
                       ]}
                     />
                   </div>
                   <div>
-                    <Label>Сумма *</Label>
+                    <Label>Amount *</Label>
                     <Select
                       value={columnMapping.amount}
                       onChange={(e) =>
@@ -307,13 +307,13 @@ export function ImportClient() {
                         })
                       }
                       options={[
-                        { value: "", label: "— не выбрано —" },
+                        { value: "", label: "— not selected —" },
                         ...detectedHeaders.map((h) => ({ value: h, label: h })),
                       ]}
                     />
                   </div>
                   <div>
-                    <Label>Валюта</Label>
+                    <Label>Currency</Label>
                     <Select
                       value={columnMapping.currency}
                       onChange={(e) =>
@@ -323,13 +323,13 @@ export function ImportClient() {
                         })
                       }
                       options={[
-                        { value: "", label: "— не выбрано —" },
+                        { value: "", label: "— not selected —" },
                         ...detectedHeaders.map((h) => ({ value: h, label: h })),
                       ]}
                     />
                   </div>
                   <div>
-                    <Label>Описание</Label>
+                    <Label>Description</Label>
                     <Select
                       value={columnMapping.description}
                       onChange={(e) =>
@@ -339,13 +339,13 @@ export function ImportClient() {
                         })
                       }
                       options={[
-                        { value: "", label: "— не выбрано —" },
+                        { value: "", label: "— not selected —" },
                         ...detectedHeaders.map((h) => ({ value: h, label: h })),
                       ]}
                     />
                   </div>
                   <div>
-                    <Label>Мерчант</Label>
+                    <Label>Merchant</Label>
                     <Select
                       value={columnMapping.merchantName}
                       onChange={(e) =>
@@ -355,13 +355,13 @@ export function ImportClient() {
                         })
                       }
                       options={[
-                        { value: "", label: "— не выбрано —" },
+                        { value: "", label: "— not selected —" },
                         ...detectedHeaders.map((h) => ({ value: h, label: h })),
                       ]}
                     />
                   </div>
                   <div>
-                    <Label>Тип (доход/расход)</Label>
+                    <Label>Type (income/expense)</Label>
                     <Select
                       value={columnMapping.type}
                       onChange={(e) =>
@@ -371,7 +371,7 @@ export function ImportClient() {
                         })
                       }
                       options={[
-                        { value: "", label: "— авто (по знаку суммы) —" },
+                        { value: "", label: "— auto (by the sum sign) —" },
                         ...detectedHeaders.map((h) => ({ value: h, label: h })),
                       ]}
                     />
@@ -383,7 +383,7 @@ export function ImportClient() {
                   onClick={handleReparse}
                   disabled={!columnMapping.date || !columnMapping.amount}
                 >
-                  Обновить предпросмотр
+                  Refresh preview
                 </Button>
               </div>
             </CardContent>
@@ -392,25 +392,25 @@ export function ImportClient() {
           <Card>
             <CardHeader>
               <div className="flex justify-between items-center">
-                <CardTitle>Предпросмотр</CardTitle>
-                <Badge variant="secondary">Всего строк: {totalRows}</Badge>
+                <CardTitle>Preview</CardTitle>
+                <Badge variant="secondary">Total rows: {totalRows}</Badge>
               </div>
             </CardHeader>
             <CardContent>
               {preview.length === 0 ? (
                 <p className="text-muted-foreground text-center py-8">
-                  Нет данных для предпросмотра. Проверьте настройки.
+                  No data to preview. Please check your settings.
                 </p>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead className="border-b bg-muted/50">
                       <tr>
-                        <th className="px-3 py-2 text-left">Дата</th>
-                        <th className="px-3 py-2 text-left">Сумма</th>
-                        <th className="px-3 py-2 text-left">Тип</th>
-                        <th className="px-3 py-2 text-left">Описание</th>
-                        <th className="px-3 py-2 text-left">Мерчант</th>
+                        <th className="px-3 py-2 text-left">Date</th>
+                        <th className="px-3 py-2 text-left">Amount</th>
+                        <th className="px-3 py-2 text-left">Type</th>
+                        <th className="px-3 py-2 text-left">Description</th>
+                        <th className="px-3 py-2 text-left">Merchant</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -453,7 +453,7 @@ export function ImportClient() {
 
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => setStep("upload")}>
-              Назад
+              Back
             </Button>
             <Button
               onClick={handleImport}
@@ -463,7 +463,7 @@ export function ImportClient() {
                 preview.length === 0
               }
             >
-              Импортировать {totalRows} транзакций
+              Import {totalRows} transactions
             </Button>
           </div>
         </div>
@@ -473,7 +473,7 @@ export function ImportClient() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="animate-spin text-4xl mb-4">⏳</div>
-            <p className="text-lg">Импортируем транзакции...</p>
+            <p className="text-lg">...</p>
           </CardContent>
         </Card>
       )}
@@ -481,7 +481,7 @@ export function ImportClient() {
       {step === "done" && importResult && (
         <Card>
           <CardHeader>
-            <CardTitle>Импорт завершен</CardTitle>
+            <CardTitle>Import completed</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-3 gap-4 mb-6">
@@ -489,27 +489,27 @@ export function ImportClient() {
                 <div className="text-3xl font-bold text-green-600">
                   {importResult.imported}
                 </div>
-                <p className="text-sm text-muted-foreground">Импортировано</p>
+                <p className="text-sm text-muted-foreground">Imported</p>
               </div>
               <div className="text-center p-4 bg-yellow-50 rounded-lg">
                 <div className="text-3xl font-bold text-yellow-600">
                   {importResult.skipped}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Пропущено (дубликаты)
+                  Missing (duplicates)
                 </p>
               </div>
               <div className="text-center p-4 bg-red-50 rounded-lg">
                 <div className="text-3xl font-bold text-red-600">
                   {importResult.errors.length}
                 </div>
-                <p className="text-sm text-muted-foreground">Ошибок</p>
+                <p className="text-sm text-muted-foreground">Errors</p>
               </div>
             </div>
 
             {importResult.errors.length > 0 && (
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">Ошибки:</h3>
+                <h3 className="font-semibold mb-2">Errors:</h3>
                 <div className="max-h-40 overflow-y-auto text-sm">
                   {importResult.errors.slice(0, 10).map((err, i) => (
                     <div key={i} className="text-red-600">
@@ -518,7 +518,7 @@ export function ImportClient() {
                   ))}
                   {importResult.errors.length > 10 && (
                     <div className="text-muted-foreground">
-                      ... и еще {importResult.errors.length - 10} ошибок
+                      ... and more {importResult.errors.length - 10} errors
                     </div>
                   )}
                 </div>
@@ -527,7 +527,7 @@ export function ImportClient() {
 
             <div className="flex gap-2">
               <Button onClick={() => router.push("/transactions")}>
-                Перейти к транзакциям
+                Go to transactions
               </Button>
               <Button
                 variant="outline"
@@ -537,7 +537,7 @@ export function ImportClient() {
                   setImportResult(null);
                 }}
               >
-                Импортировать еще
+                Import more
               </Button>
             </div>
           </CardContent>

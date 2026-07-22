@@ -1,6 +1,6 @@
 # Finance Tracker
 
-Современное приложение для учёта личных финансов с умной категоризацией и детальной аналитикой.
+A modern application for thorough financial accounting with smart categorization and detailed analytics.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -8,226 +8,226 @@
 ![Tests](https://img.shields.io/badge/tests-87%25-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-87%25-brightgreen)
 
-## Основные возможности
+## Key Features
 
-### Управление финансами
+### Financial Management
 
-- **Ручной ввод транзакций** — быстрое добавление доходов и расходов
-- **Умная категоризация** — Rule Engine для автоматической классификации транзакций
-- **Импорт CSV** — загрузка выписок из любых банков (Сбербанк, Тинькофф, Альфа, ВТБ)
+- **Manual Transaction Entry** — Quickly add income and expenses
+- **Smart Categorization** — Rule Engine for automatic transaction classification
+- **CSV Import** — Upload statements from any bank (Sberbank, Tinkoff, Alfa, VTB)
 
-### Аналитика и отчёты
+### Analytics and Reports
 
-- **Дашборд** — ключевые метрики: доходы, расходы, баланс
-- **Графики расходов** — визуализация по категориям и времени
-- **Сравнение периодов** — анализ динамики расходов
+- **Dashboard** — Key metrics: income, expenses, balance
+- **Expense Charts** — Visualization by category and time
+- **Period Comparison** — Analysis of expense dynamics
 
-### Безопасность
+### Security
 
-- **Шифрование AES-256-GCM** — банковские токены защищены в БД
-- **Rate limiting** — защита от DDoS атак
-- **Security headers** — CSP, HSTS, XSS protection
-- **OAuth 2.0** — вход через GitHub, Google, email/password
+- **AES-256-GCM Encryption** — Bank tokens are protected in the database
+- **Rate Limiting** — Protection from DDoS attacks
+- **Security Headers** — CSP, HSTS, XSS protection
+- **OAuth 2.0** — Login via GitHub, Google, email/password
 
-## 🛠 Технологический стек
+## 🛠 Tech stack
 
 ### Frontend
 
-- **Next.js 15** — React фреймворк с App Router и Server Components
-- **React 19** — последняя версия с новыми хуками
-- **TypeScript 5.9** — строгая типизация
-- **Tailwind CSS** — utility-first CSS фреймворк
-- **tRPC** — end-to-end типизация от API до UI
-- **React Query** — управление серверным состоянием
-- **Zod** — валидация схем
+- **Next.js 15** — React framework with App Router and Server Components
+- **React 19** — the latest version with new hooks
+- **TypeScript 5.9** — strong typing
+- **Tailwind CSS** — utility-first CSS framework
+- **tRPC** — end-to-end typing from API to UI
+- **React Query** — server state management
+- **Zod** — schema validation
 
 ### Backend
 
-- **NestJS 10** — Node.js фреймворк для воркера
+- **NestJS 10** — Node.js framework for worker
 - **tRPC** — type-safe API
-- **Drizzle ORM** — современный ORM для TypeScript
-- **PostgreSQL 16** — основная база данных
-- **Redis (Upstash)** — кэширование и очереди
-- **BullMQ** — обработка фоновых задач
+- **Drizzle ORM** — modern ORM for TypeScript
+- **PostgreSQL 16** — primary database
+- **Redis (Upstash)** — caching and queues
+- **BullMQ** — background processing tasks
 
-### Инфраструктура
+### Infrastructure
 
-- **Docker** — контейнеризация
+- **Docker** — containerization
 - **GitHub Actions** — CI/CD
-- **Codecov** — покрытие тестами
+- **Codecov** — test coverage
 
-### Тестирование
+### Testing
 
-- **Vitest** — unit и integration тесты (87% покрытие)
-- **Playwright** — E2E тесты
+- **Vitest** — unit and integration tests (87% coverage)
+- **Playwright** — E2E tests
 
-## Монорепозиторий
+## Monorepo
 
 ```bash
 finance-tracker/
 ├── apps/
-│ ├── web/ # Next.js приложение
-│ └── worker/ # NestJS воркер для фоновых задач
+│ ├── web/ # Next.js app
+│ └── worker/ # NestJS worker for background tasks
 ├── packages/
-│ ├── api/ # tRPC роутеры и бизнес-логика
-│ ├── db/ # Drizzle ORM схемы и клиент
-│ ├── ui/ # Переиспользуемые UI компоненты
-│ ├── crypto/ # Утилиты шифрования
-│ ├── eslint-config/ # ESLint конфигурация
-│ └── typescript-config/ # TypeScript конфигурации
-└── docker-compose.yml # Локальная разработка
+│ ├── api/ # tRPC routers and business logic
+│ ├── db/ # Drizzle ORM circuits and client
+│ ├── ui/ # Reusable UI components
+│ ├── crypto/ # Encryption utilities
+│ ├── eslint-config/ # ESLint configuration
+│ └── typescript-config/ # TypeScript configuration
+└── docker-compose.yml # Local development
 ```
 
-## Презентация
+## Screenshots
 
-### Страница входа в приложение
+### Login page
 
 ![Login page](images/login.png)
 
-### Страница регистрации
+### Logup page
 
 ![Logup page](images/register.png)
 
-### Компонент добавления новой категории
+### Add new category component
 
 ![Add new category](images/new-category.png)
 
-### Страница категорий
+### Categories page
 
 ![Categories page](images/categories.png)
 
-### Компонент добавления новой транзакции
+### Add new transaction component
 
 ![Add new transaction](images/new-transaction.png)
 
-### Страница транзакций
+### Transactions page
 
 ![Transactions page](images/transactions.png)
 
-### Страница с данными о заработках и доходах за месяц
+### Monthly earnings and income data page
 
 ![Dashbord](images/dashbord.png)
 
-### Страница добавления формирования и добавления новых транзакций через парсинг выписки из банка в формате CSV
+### Page for adding new transactions by parsing bank statements in CSV format
 
 ![Import CSV file](images/import.png)
 
-### Результат парсинга CSV файла
+### CSV file parsing result
 
 ![CSV file parsing result](images/import-new-transactions.png)
 
-### Добавление новых транзакций
+### Add new transactions
 
 ![Add new transactions](images/import-add-new-transactions.png)
 
-## Быстрый старт
+## Quick start
 
-### Требования
+### Requirements
 
 - Node.js 20+
 - pnpm 9+
-- Docker и Docker Compose
-- PostgreSQL 16+ (или Docker)
+- Docker and Docker Compose
+- PostgreSQL 16+ (or Docker)
 
-### Установка
+### Installation
 
-1. **Клонируйте репозиторий**
+1. **Clone repo**
 
 ```bash
 git clone git@github.com:YuliaVorotintseva/finance_tracker.git
 cd finance-tracker
 ```
 
-2. **Установите зависимости**
+2. **Install dependencies**
 
 ```bash
 pnpm install
 ```
 
-3. **Настройте переменные окружения**
+3. **Set up environment variables**
 
 ```bash
-# Скопируйте пример .env
+# Copy example .env
 cp apps/web/.env.example apps/web/.env
 cp apps/worker/.env.example apps/worker/.env
 
-# Сгенерируйте ключ шифрования
+# Generate an encryption key
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
-# Добавьте ключ в оба .env файла
+# Add the key to both .env files
 ```
 
-4. **Запустите базу данных**
+4. **Start the database**
 
 ```bash
 docker-compose up -d postgres
 ```
 
-5. **Примените миграции**
+5. **Apply migrations**
 
 ```bash
 pnpm --filter @repo/db db:push
 ```
 
-6. **Запустите приложение**
+6. **Launch the application**
 
 ```bash
 pnpm dev
 
-# Откройте http://localhost:3000
+# Open http://localhost:3000
 ```
 
-## Тестирование
+## Testing
 
-### Unit тесты
+### Unit tests
 
 ```bash
-# Запустить все тесты
+# Launch all tests
 pnpm test
 
-# С покрытием
+# With coverage
 pnpm test:coverage
 
 # Watch mode
 pnpm test:watch
 ```
 
-### E2E тесты
+### E2E tests
 
 ```bash
-# Запустить Playwright тесты
+# Launch Playwright tests
 pnpm test:e2e
 
-# С UI
+# With UI
 pnpm test:e2e:ui
 ```
 
-### Проверка типов и линтинг
+### Type checking and linting
 
 ```bash
 pnpm type-check
 pnpm lint
 ```
 
-## Безопасность
+## Security
 
-- **Rate limiting** — защита от brute force
+- **Rate limiting** — brute force protection
 - **Security headers** — CSP, HSTS, X-Frame-Options
-- **SQL injection protection** — параметризованные запросы
-- **XSS protection** — санитизация входных данных
-- **CSRF protection** — токены для форм
+- **SQL injection protection** — parameterized queries
+- **XSS protection** — input data sanitization
+- **CSRF protection** — form tokens
 
-## Автор
+## Author
 
-**Воротинцева Юлия**
+**Vorotintseva Yulia**
 
 - **GitHub**: @YuliaVorotintseva
 - **Email**: yulia.vorotintseva@gmail.com
 
-## Технологии
+## Technologies
 
-- **Next.js** (https://nextjs.org/) — отличный fullstack фреймворк
-- **NestJS** (https://nestjs.com/) — отличный backend фреймворк
-- **tRPC** (https://trpc.io/) — end-to-end типизация
-- **Drizzle ORM** (https://orm.drizzle.team/) — современный ORM
+- **Next.js** (https://nextjs.org/) — an excellent full-stack framework
+- **NestJS** (https://nestjs.com/) — an excellent backend framework
+- **tRPC** (https://trpc.io/) — end-to-end typing
+- **Drizzle ORM** (https://orm.drizzle.team/) — a modern ORM
 - **Tailwind CSS** (https://tailwindcss.com/) — utility-first CSS

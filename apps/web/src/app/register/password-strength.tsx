@@ -24,7 +24,7 @@ export const PasswordStrength = ({ password }: PasswordStrengthProps) => {
         ))}
       </div>
       <p className="text-xs text-muted-foreground">
-        Надёжность пароля: <span className="font-medium">{strength.label}</span>
+        Password strength: <span className="font-medium">{strength.label}</span>
       </p>
     </div>
   );

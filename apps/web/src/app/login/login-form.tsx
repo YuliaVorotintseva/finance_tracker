@@ -86,7 +86,7 @@ export const LoginForm = () => {
       if (result?.error) {
         form.setError("root", {
           type: "manual",
-          message: "Неверный email или пароль",
+          message: "Incorrect email or password",
         });
       } else {
         router.push(callbackUrl);
@@ -95,7 +95,7 @@ export const LoginForm = () => {
     } catch (error: unknown) {
       form.setError("root", {
         type: "manual",
-        message: `Произошла ошибка при входе: ${error}`,
+        message: `There was an error logging you in: ${error}`,
       });
     } finally {
       setIsLoading(null);
@@ -105,13 +105,13 @@ export const LoginForm = () => {
   const getErrorMessage = (error: string | null) => {
     switch (error) {
       case "OAuthAccountNotLinked":
-        return "Этот email уже используется с другим провайдером";
+        return "This email is already in use with another provider";
       case "CredentialsSignin":
-        return "Неверные учетные данные";
+        return "Incorrect credentials";
       case "AccessDenied":
-        return "Доступ запрещен";
+        return "Access denied";
       default:
-        return error ? "Произошла ошибка при входе" : null;
+        return error ? "Error occurred while logging in" : null;
     }
   };
 
@@ -135,7 +135,7 @@ export const LoginForm = () => {
         </div>
         <CardTitle className="text-2xl font-bold">Finance Tracker</CardTitle>
         <p className="text-sm text-muted-foreground">
-          Войдите, чтобы управлять своими финансами
+          Sign in to manage your finances
         </p>
       </CardHeader>
 
@@ -156,7 +156,7 @@ export const LoginForm = () => {
           ) : (
             <>
               <GithubIcon className="mr-2 h-4 w-4" />
-              Войти через GitHub
+              Login via GitHub
             </>
           )}
         </Button>
@@ -172,7 +172,7 @@ export const LoginForm = () => {
           ) : (
             <>
               <GoogleIcon className="mr-2 h-4 w-4" />
-              Войти через Google
+              Login via Google
             </>
           )}
         </Button>
@@ -183,7 +183,7 @@ export const LoginForm = () => {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Или через email
+              Or via email
             </span>
           </div>
         </div>
@@ -217,12 +217,12 @@ export const LoginForm = () => {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Пароль</Label>
+              <Label htmlFor="password">Password</Label>
               <Link
                 href="/forgot-password"
                 className="text-xs text-primary hover:underline"
               >
-                Забыли пароль?
+                Forgot your password?
               </Link>
             </div>
             <Input
@@ -245,18 +245,18 @@ export const LoginForm = () => {
             className="w-full"
             disabled={isLoading === "credentials" || !form.formState.isValid}
           >
-            {isLoading === "credentials" ? <LoadingSpinner /> : "Войти"}
+            {isLoading === "credentials" ? <LoadingSpinner /> : "Login"}
           </Button>
         </form>
 
         <div className="text-center text-sm">
           <Link href="/register" className="text-primary hover:underline">
-            Нет аккаунта? Зарегистрироваться
+            Don't have an account? Sign up
           </Link>
         </div>
 
         <div className="text-center text-xs text-muted-foreground">
-          <p>Продолжая, вы соглашаетесь с условиями использования</p>
+          <p>By continuing, you agree to the terms of use</p>
         </div>
       </CardContent>
     </Card>

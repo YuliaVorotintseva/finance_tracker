@@ -12,20 +12,20 @@ test.describe("Categories", () => {
   test("should create new category", async ({ page }) => {
     await page.goto("/categories");
 
-    await page.click("text=Добавить категорию");
-    await page.fill("#name", "Тестовая категория");
-    await page.click("text=Сохранить");
+    await page.click("text=Add category");
+    await page.fill("#name", "Test category");
+    await page.click("text=Save");
 
-    await expect(page.getByText("Тестовая категория")).toBeVisible();
+    await expect(page.getByText("Test category")).toBeVisible();
   });
 
   test("should delete category", async ({ page }) => {
     await page.goto("/categories");
 
     const categoryName = `ToDelete-${Date.now()}`;
-    await page.click("text=Добавить категорию");
+    await page.click("text=Add category");
     await page.fill("#name", categoryName);
-    await page.click("text=Сохранить");
+    await page.click("text=Save");
 
     await expect(page.getByText(categoryName)).toBeVisible({ timeout: 5000 });
 

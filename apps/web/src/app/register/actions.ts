@@ -19,7 +19,7 @@ export async function registerUser(formData: FormData) {
   const parsed = registerSchema.safeParse(data);
   if (!parsed.success) {
     return {
-      error: "Некорректные данные",
+      error: "Incorrect data",
       fields: parsed.error.flatten().fieldErrors,
     };
   }
@@ -29,7 +29,7 @@ export async function registerUser(formData: FormData) {
   });
 
   if (existingUser) {
-    return { error: "Пользователь с таким email уже существует" };
+    return { error: "A user with this email already exists" };
   }
 
   const hashedPassword = await hashPassword(parsed.data.password);
@@ -42,7 +42,7 @@ export async function registerUser(formData: FormData) {
     });
   } catch (error) {
     console.error("Database error:", error);
-    return { error: "Ошибка при создании пользователя" };
+    return { error: "Error occurred while creating user" };
   }
 
   try {
@@ -54,6 +54,6 @@ export async function registerUser(formData: FormData) {
     return { success: true };
   } catch (error) {
     console.error("Sign in error:", error);
-    return { error: "Ошибка при входе после регистрации" };
+    return { error: "Error logging in after registration" };
   }
 }

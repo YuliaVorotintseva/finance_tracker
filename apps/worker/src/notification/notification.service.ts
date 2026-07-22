@@ -40,18 +40,18 @@ export class NotificationService {
 
     switch (type) {
       case 'new_transaction':
-        subject = 'Новая транзакция';
-        message = `Новая транзакция на сумму ${data.amount} ${data.currency}`;
+        subject = 'New transaction';
+        message = `New transaction in the amount of ${data.amount} ${data.currency}`;
         break;
 
       case 'large_expense':
-        subject = 'Крупный расход';
-        message = `Зафиксирован крупный расход на сумму ${data.amount}`;
+        subject = 'Large expense';
+        message = `Fixed large expense in the amount of ${data.amount}`;
         break;
 
       case 'subscription_detected':
-        subject = 'Обнаружена подписка';
-        message = `Обнаружена регулярная подписка: ${data.name} на сумму ${data.amount}`;
+        subject = 'Subscription detected';
+        message = `Detected regular subscription: ${data.name} in the amount of ${data.amount}`;
         break;
 
       default:

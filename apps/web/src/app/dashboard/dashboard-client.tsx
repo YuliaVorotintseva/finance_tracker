@@ -64,7 +64,7 @@ export const DashboardClient = ({
   return (
     <div className="container mx-auto p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Дашборд</h1>
+        <h1 className="text-3xl font-bold">Dashboard</h1>
         <input
           type="month"
           value={month}
@@ -74,10 +74,10 @@ export const DashboardClient = ({
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <MetricCard title="Доходы" value={income} color="text-green-600" />
-        <MetricCard title="Расходы" value={expense} color="text-red-600" />
+        <MetricCard title="Incomes" value={income} color="text-green-600" />
+        <MetricCard title="Expenses" value={expense} color="text-red-600" />
         <MetricCard
-          title="Баланс"
+          title="Balance"
           value={balance}
           color={balance >= 0 ? "text-blue-600" : "text-red-600"}
         />
@@ -85,13 +85,13 @@ export const DashboardClient = ({
 
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle>Расходы по категориям</CardTitle>
+          <CardTitle>Expenses by category</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <p>Загрузка...</p>
+            <p>Loading...</p>
           ) : stats?.byCategory.length === 0 ? (
-            <p className="text-muted-foreground">Нет данных за этот месяц</p>
+            <p className="text-muted-foreground">No data for this month</p>
           ) : (
             <div className="space-y-3">
               {stats?.byCategory.map((cat) => {

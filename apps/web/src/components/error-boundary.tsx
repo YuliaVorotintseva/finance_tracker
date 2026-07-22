@@ -35,13 +35,13 @@ export class ErrorBoundary extends Component<Props, State> {
           <Card className="m-4">
             <CardContent className="p-6 text-center">
               <h2 className="text-xl font-bold text-destructive mb-2">
-                Что-то пошло не так
+                Something went wrong
               </h2>
               <p className="text-muted-foreground mb-4">
-                {this.state.error?.message || "Произошла непредвиденная ошибка"}
+                {this.state.error?.message || "An unexpected error occurred"}
               </p>
               <Button onClick={() => window.location.reload()}>
-                Перезагрузить страницу
+                Reload page
               </Button>
             </CardContent>
           </Card>

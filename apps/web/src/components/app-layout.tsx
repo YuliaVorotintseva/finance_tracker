@@ -9,10 +9,10 @@ import { cn } from "@repo/ui";
 import { LogoutButton } from "./logout-button";
 
 const NAV_ITEMS = [
-  { href: "/dashboard", label: "Дашборд" },
-  { href: "/transactions", label: "Транзакции" },
-  { href: "/categories", label: "Категории" },
-  { href: "/import", label: "Импорт CSV-файла" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/transactions", label: "Transactions" },
+  { href: "/categories", label: "Categories" },
+  { href: "/import", label: "Import CSV file" },
 ];
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {

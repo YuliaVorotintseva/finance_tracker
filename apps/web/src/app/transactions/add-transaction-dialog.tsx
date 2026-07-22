@@ -17,7 +17,7 @@ import {
 import { trpc } from "../../lib/trcp-client";
 
 const transactionSchema = z.object({
-  amount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Введите корректную сумму"),
+  amount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Enter the correct amount"),
   type: z.enum(["income", "expense", "transfer"]),
   categoryId: z.string().uuid().optional(),
   occurredAt: z.string(),
@@ -75,26 +75,26 @@ export const AddTransactionDialog = ({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogHeader>
-        <DialogTitle>Новая транзакция</DialogTitle>
+        <DialogTitle>New transaction</DialogTitle>
       </DialogHeader>
 
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="type">Тип</Label>
+            <Label htmlFor="type">Type</Label>
             <Select
               id="type"
               {...form.register("type")}
               options={[
-                { value: "expense", label: "Расход" },
-                { value: "income", label: "Доход" },
-                { value: "transfer", label: "Перевод" },
+                { value: "expense", label: "Expense" },
+                { value: "income", label: "Income" },
+                { value: "transfer", label: "Transfer" },
               ]}
             />
           </div>
 
           <div>
-            <Label htmlFor="amount">Сумма</Label>
+            <Label htmlFor="amount">Amount</Label>
             <Input
               id="amount"
               type="number"
@@ -111,12 +111,12 @@ export const AddTransactionDialog = ({
         </div>
 
         <div>
-          <Label htmlFor="category">Категория</Label>
+          <Label htmlFor="category">Category</Label>
           <Select
             id="category"
             {...form.register("categoryId")}
             options={[
-              { value: "", label: "Без категории" },
+              { value: "", label: "Without any category" },
               ...(form.watch("type") === "expense"
                 ? expenseCategories
                 : incomeCategories
@@ -129,7 +129,7 @@ export const AddTransactionDialog = ({
         </div>
 
         <div>
-          <Label htmlFor="occurredAt">Дата и время</Label>
+          <Label htmlFor="occurredAt">Date and time</Label>
           <Input
             id="occurredAt"
             type="datetime-local"
@@ -138,19 +138,19 @@ export const AddTransactionDialog = ({
         </div>
 
         <div>
-          <Label htmlFor="description">Описание</Label>
+          <Label htmlFor="description">Description</Label>
           <Input
             id="description"
-            placeholder="Например: Продукты в магазине"
+            placeholder="For example: products in the store"
             {...form.register("description")}
           />
         </div>
 
         <div>
-          <Label htmlFor="merchantName">Мерчант</Label>
+          <Label htmlFor="merchantName">Merchant</Label>
           <Input
             id="merchantName"
-            placeholder="Например: Пятёрочка"
+            placeholder="For example: Metro"
             {...form.register("merchantName")}
           />
         </div>
@@ -160,7 +160,7 @@ export const AddTransactionDialog = ({
             Отмена
           </Button>
           <Button type="submit" disabled={createMutation.isPending}>
-            {createMutation.isPending ? "Сохранение..." : "Сохранить"}
+            {createMutation.isPending ? "Saving..." : "Save"}
           </Button>
         </DialogFooter>
       </form>

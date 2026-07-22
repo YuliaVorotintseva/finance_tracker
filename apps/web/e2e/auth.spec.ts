@@ -36,7 +36,7 @@ test.describe("Authentication", () => {
 
     await page.click("#email");
 
-    await expect(page.getByText(/минимум 2 символа/i)).toBeVisible({
+    await expect(page.getByText(/at least 2 characters/i)).toBeVisible({
       timeout: 5000,
     });
   });

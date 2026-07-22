@@ -36,18 +36,18 @@ export function BankConnections() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Банковские подключения</CardTitle>
+        <CardTitle>Banking connections</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <p>Загрузка...</p>
+          <p>Loading...</p>
         ) : connections?.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-muted-foreground mb-4">
-              У вас нет подключенных банковских аккаунтов
+              You don't have any connected bank accounts.
             </p>
             <Button onClick={handleConnect} disabled={isConnecting}>
-              {isConnecting ? "Подключение..." : "Подключить банк"}
+              {isConnecting ? "Connecting..." : "Connect your bank"}
             </Button>
           </div>
         ) : (
@@ -71,9 +71,9 @@ export function BankConnections() {
                     </Badge>
                     {connection.lastSyncedAt && (
                       <span className="text-xs text-muted-foreground">
-                        Синхронизирован:{" "}
+                        Synchronized:{" "}
                         {new Date(connection.lastSyncedAt).toLocaleString(
-                          "ru-RU",
+                          "en-EN",
                         )}
                       </span>
                     )}
@@ -85,7 +85,7 @@ export function BankConnections() {
                   onClick={() => deleteMutation.mutate({ id: connection.id })}
                   disabled={deleteMutation.isPending}
                 >
-                  Отключить
+                  Disable
                 </Button>
               </div>
             ))}
@@ -94,7 +94,7 @@ export function BankConnections() {
               disabled={isConnecting}
               className="w-full"
             >
-              {isConnecting ? "Подключение..." : "Добавить ещё банк"}
+              {isConnecting ? "Connecting..." : "Add another bank"}
             </Button>
           </div>
         )}

@@ -1,24 +1,27 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email("Некорректный email"),
-  password: z.string().min(1, "Пароль обязателен"),
+  email: z.string().email("Incorrect email"),
+  password: z.string().min(1, "Password is required"),
 });
 
 export const registerSchema = z
   .object({
-    name: z.string().min(2, "Имя должно содержать минимум 2 символа").max(50),
-    email: z.string().email("Некорректный email"),
+    name: z
+      .string()
+      .min(2, "The name must contain at least 2 characters")
+      .max(50),
+    email: z.string().email("Incorrect email"),
     password: z
       .string()
-      .min(8, "Пароль должен содержать минимум 8 символов")
-      .regex(/[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву")
-      .regex(/[a-z]/, "Пароль должен содержать хотя бы одну строчную букву")
-      .regex(/[0-9]/, "Пароль должен содержать хотя бы одну цифру"),
+      .min(8, "The password must contain at least 2 characters")
+      .regex(/[A-Z]/, "The password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "The password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "The password must contain at least one digit"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Пароли не совпадают",
+    message: "The passwords don't match",
     path: ["confirmPassword"],
   });
 
@@ -39,7 +42,7 @@ export function getPasswordStrength(password: string): {
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
 
-  if (score <= 2) return { score, label: "Слабый", color: "bg-red-500" };
-  if (score <= 4) return { score, label: "Средний", color: "bg-yellow-500" };
-  return { score, label: "Сильный", color: "bg-green-500" };
+  if (score <= 2) return { score, label: "Weak", color: "bg-red-500" };
+  if (score <= 4) return { score, label: "Medium", color: "bg-yellow-500" };
+  return { score, label: "Strong", color: "bg-green-500" };
 }
