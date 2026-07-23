@@ -88,9 +88,13 @@ finance-tracker/
 
 ![Logup page](images/register.png)
 
+### Empty dashboard
+
+![Empty dashboard](images/empty_dashboard.png)
+
 ### Add new category component
 
-![Add new category](images/new-category.png)
+![Add new category](images/new_category.png)
 
 ### Categories page
 
@@ -98,7 +102,7 @@ finance-tracker/
 
 ### Add new transaction component
 
-![Add new transaction](images/new-transaction.png)
+![Add new transaction](images/new_transaction.png)
 
 ### Transactions page
 
@@ -106,7 +110,7 @@ finance-tracker/
 
 ### Monthly earnings and income data page
 
-![Dashbord](images/dashbord.png)
+![Dashbord](images/dashboard.png)
 
 ### Page for adding new transactions by parsing bank statements in CSV format
 
@@ -114,11 +118,15 @@ finance-tracker/
 
 ### CSV file parsing result
 
-![CSV file parsing result](images/import-new-transactions.png)
+![CSV file parsing result](images/import_new_transactions.png)
 
 ### Add new transactions
 
 ![Add new transactions](images/import-add-new-transactions.png)
+
+### Dashboard with transactions imported from CSV file
+
+![Imported transactions](images/imported_transactions_on_dashboard.png)
 
 ## Quick start
 
