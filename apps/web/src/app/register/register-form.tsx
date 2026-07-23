@@ -79,7 +79,7 @@ export const RegisterForm = () => {
             />
           </svg>
         </div>
-        <CardTitle className="text-2xl font-bold">Создать аккаунт</CardTitle>
+        <CardTitle className="text-2xl font-bold">Create account</CardTitle>
         <p className="text-sm text-muted-foreground">
           Fill out the registration form
         </p>
