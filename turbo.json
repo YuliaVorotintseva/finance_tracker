@@ -3,16 +3,19 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**"]
     },
+    "type-check": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {},
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "db:generate": { "cache": false },
-    "db:migrate": { "cache": false },
-    "db:push": { "cache": false },
-    "lint": { "dependsOn": ["^build"] },
-    "type-check": { "dependsOn": ["^build"] }
-  }
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  },
+  "globalPassThroughEnv": ["DATABASE_URL"]
 }

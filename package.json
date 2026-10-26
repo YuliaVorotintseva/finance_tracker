@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
+    "build": "turbo run build --filter=web",
     "dev:up": "docker-compose up -d",
     "dev:down": "docker-compose down",
     "dev:logs": "docker-compose logs -f postgres",

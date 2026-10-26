@@ -32,7 +32,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@repo/ui", "@repo/api", "@repo/db"],
+  transpilePackages: ["@repo/ui", "@repo/api", "@repo/db", "@repo/crypto"],
   async headers() {
     return [
       {
