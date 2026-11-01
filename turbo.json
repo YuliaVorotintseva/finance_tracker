@@ -9,6 +9,13 @@
       "dependsOn": ["^build"]
     },
     "lint": {},
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
     "dev": {
       "cache": false,
       "persistent": true
